@@ -12,7 +12,7 @@ private fun dummy(index: String): Mono<SomeResponse> {
             someProcessing()
         }
         // In order to switch processing to another thread 
-        // If log line: `End PENDING_REQUEST_TIME. Took: X seconds` shows values greater than 0
+        // If log line: `End WEB_CLIENT_PENDING_REQUEST_TIME. Took: X seconds` shows values greater than 0
         // .publishOn(customParallelScheduler) <--------- THIS LINE
 ```
 
@@ -65,9 +65,43 @@ curl http://localhost:8080/send-requests-default/undertow
 ```
 - option 1 - webflux-defaults-app will use `publishOn` after getting response from WebClient
 ```shell
-http://localhost:8080/send-requests-with-publish-on/undertow
+curl http://localhost:8080/send-requests-with-publish-on/undertow
 ```
 
 # How does it work
 
 ![how-does-it-work.png](how-does-it-work.png)
+
+
+# Results
+
+## Netty Server & Client
+```shell
+curl http://localhost:8080/send-requests-default/netty
+```
+
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For first batch 0s ✅
+
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For second batch 8s ❌ No metric for `Event loop task duration tracking`
+
+```shell
+curl http://localhost:8080/send-requests-with-publish-on/netty
+```
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For first batch 0s ✅
+
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For second batch 8s ✅
+
+## Undertow Server, Netty Client
+```shell
+curl http://localhost:8080/send-requests-default/undertow
+```
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For first batch 0s ✅
+
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For second batch 8s ✅
+
+```shell
+curl http://localhost:8080/send-requests-with-publish-on/undertow
+```
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For first batch 0s ✅
+
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For second batch 0s ✅

@@ -6,7 +6,7 @@ import org.springframework.web.reactive.function.client.WebClient
 import java.time.Duration
 import kotlin.jvm.optionals.getOrNull
 
-const val PENDING_REQUEST_TIME = "PENDING_REQUEST_TIME"
+const val WEB_CLIENT_PENDING_REQUEST_TIME = "WEB_CLIENT_PENDING_REQUEST_TIME"
 
 data class ContextWithStartTime(
     val index: String,
@@ -27,8 +27,8 @@ class UndertowAppWebClientProvider(
                         // executed on server thread
                         val index = request.headers()[DUMMY_INDEX]?.first()
                         if (index != null) {
-                            UndertowAppLogger.log(this, "Index: $index. Start $PENDING_REQUEST_TIME")
-                            it.put(PENDING_REQUEST_TIME, ContextWithStartTime(index, System.nanoTime()))
+                            UndertowAppLogger.log(this, "Index: $index. Start $WEB_CLIENT_PENDING_REQUEST_TIME")
+                            it.put(WEB_CLIENT_PENDING_REQUEST_TIME, ContextWithStartTime(index, System.nanoTime()))
                         } else {
                             it
                         }
@@ -43,14 +43,14 @@ class UndertowAppWebClientProvider(
                                 val contextWithStartTime =
                                     httpClientRequest
                                         .currentContextView()
-                                        .getOrEmpty<ContextWithStartTime>(PENDING_REQUEST_TIME)
+                                        .getOrEmpty<ContextWithStartTime>(WEB_CLIENT_PENDING_REQUEST_TIME)
                                         .getOrNull()
                                         ?: return@doOnRequest
 
                                 val duration = Duration.ofNanos(System.nanoTime() - contextWithStartTime.startTime)
                                 UndertowAppLogger.log(
                                     this,
-                                    "Index: ${contextWithStartTime.index}. End $PENDING_REQUEST_TIME. Took: $duration"
+                                    "Index: ${contextWithStartTime.index}. End $WEB_CLIENT_PENDING_REQUEST_TIME. Took: $duration"
                                 )
                             }
                     }

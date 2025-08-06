@@ -68,24 +68,4 @@ class WebfluxController(
         Thread.sleep(Duration.ofSeconds(cpuOperationDelaySeconds))
     }
 
-    private fun dummy(index: String): Mono<SomeResponse> {
-        // runs on server thread
-        webClient
-            .get()
-            .uri("http://localhost:8083/dummy/1")
-            .retrieve()
-            .bodyToMono(SomeResponse::class.java)
-            .map {
-                // runs on client thread, for WebFlux thread pool is shared
-                someProcessing()
-            }
-            // In order to switch processing to another thread
-//            .publishOn(customParallelScheduler)
-    }
-
-    private fun someProcessing() {
-
-    }
-
-
 }

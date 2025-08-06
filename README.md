@@ -33,7 +33,7 @@ request-sender
 ```
     
 # How to use - Netty flow
-1. Run `MockExternalServiceApp`
+1. Run `RequestSenderApp`
 2. Run `WebfluxDefaultsApp`
 3. Run `MockExternalServiceApp`
 4. Warmup webClients
@@ -51,7 +51,7 @@ http://localhost:8080/send-requests-with-publish-on/netty
 ```
 
 # How to use - Undertow flow
-1. Run `MockExternalServiceApp`
+1. Run `RequestSenderApp`
 2. Run `UndertowServerApp`
 3. Run `MockExternalServiceApp`
 4. Warmup webClients

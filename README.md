@@ -68,9 +68,11 @@ curl http://localhost:8080/send-requests-default/undertow
 curl http://localhost:8080/send-requests-with-publish-on/undertow
 ```
 
-# How does it work
+# Simulation flow
 
-![how-does-it-work.png](how-does-it-work.png)
+![Simulation-flow.png](Simulation-flow.png)
+
+# Results of simulation
 
 ## Netty Server & Client
 ```shell

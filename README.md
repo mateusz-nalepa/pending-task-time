@@ -77,12 +77,13 @@ curl http://localhost:8080/send-requests-with-publish-on/undertow
 
 ## Netty Server & Client
 ```shell
+# This is not stable, sometimes 27s, sometimes 30s, 37s, 47s
 curl http://localhost:8080/send-requests-default/netty
 ```
 
 WEB_CLIENT_PENDING_REQUEST_TIME. Took: For first batch 0s ✅
 
-WEB_CLIENT_PENDING_REQUEST_TIME. Took: For second batch 8s ❌ No metric for `Event loop task duration tracking`
+WEB_CLIENT_PENDING_REQUEST_TIME. Took: For second batch 0s, sometimes 8s, 10s ❌ No metric for `Event loop task duration tracking`
 
 ```shell
 curl http://localhost:8080/send-requests-with-publish-on/netty

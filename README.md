@@ -72,9 +72,6 @@ curl http://localhost:8080/send-requests-with-publish-on/undertow
 
 ![how-does-it-work.png](how-does-it-work.png)
 
-
-# Results
-
 ## Netty Server & Client
 ```shell
 # This is not stable, sometimes 27s, sometimes 30s, 37s, 47s

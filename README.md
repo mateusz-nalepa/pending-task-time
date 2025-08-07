@@ -38,7 +38,7 @@ request-sender
 3. Run `MockExternalServiceApp`
 4. Warmup webClients
 ```shell
-curl http://localhost:8080/warmup
+curl http://localhost:8080/warmup/netty
 ```
 5. Run one of those:
 - option 1 - default app behaviour
@@ -56,7 +56,7 @@ http://localhost:8080/send-requests-with-publish-on/netty
 3. Run `MockExternalServiceApp`
 4. Warmup webClients
 ```shell
-curl http://localhost:8080/warmup
+curl http://localhost:8080/warmup/undertow
 ```
 5. Run one of those:
 - option 1 - default app behaviour

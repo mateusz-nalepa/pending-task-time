@@ -25,12 +25,11 @@ class RequestSenderEndpoint(
 
     private val webClient = webClientBuilder.build()
 
-    @GetMapping("/warmup")
-    fun warmup(): Mono<String> =
-        Mono.zip(
-            sendRequest(-1, true, 0, 0, "netty"),
-            sendRequest(-1, true, 0, 0, "undertow")
-        )
+    @GetMapping("/warmup/{appServerType}")
+    fun warmup(
+        @PathVariable appServerType: String,
+    ): Mono<String> =
+        sendRequest(-1, true, 0, 0, appServerType)
             .map {
                 RequestSenderLogger.log(this, "Warmup DONE")
                 "Warmup DONE"

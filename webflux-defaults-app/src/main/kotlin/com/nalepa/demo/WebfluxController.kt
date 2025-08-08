@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Schedulers
 import java.time.Duration
+import kotlin.math.sqrt
 
 data class SomeResponse(
     val text: String,
@@ -64,8 +65,12 @@ class WebfluxController(
     }
 
     private fun someHeavyCpuOperation(cpuOperationDelaySeconds: Long) {
-        // Virtual Threads are not used, so sleep will actually make thread busy
-        Thread.sleep(Duration.ofSeconds(cpuOperationDelaySeconds))
+        val startTime = System.nanoTime()
+        var iterations = 0L
+        while (Duration.ofNanos(System.nanoTime() - startTime).seconds < cpuOperationDelaySeconds) {
+            sqrt(iterations.toDouble())
+            iterations++
+        }
     }
 
 }
